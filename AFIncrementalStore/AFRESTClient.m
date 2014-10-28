@@ -286,11 +286,11 @@ static NSString * AFQueryByAppendingParameters(NSString *query, NSDictionary *pa
 - (NSDictionary *)parametersForFetchRequest:(NSFetchRequest *)fetchRequest {
     NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
     if (fetchRequest.fetchOffset > 0) {
-        [mutableParameters setValue:[NSString stringWithFormat:@"%u", fetchRequest.fetchOffset] forKey:self.offsetParameter];
+        [mutableParameters setValue:[NSString stringWithFormat:@"%lu", (unsigned long)fetchRequest.fetchOffset] forKey:self.offsetParameter];
     }
     
     if (fetchRequest.fetchLimit > 0) {
-        [mutableParameters setValue:[NSString stringWithFormat:@"%u", fetchRequest.fetchLimit] forKey:self.limitParameter];
+        [mutableParameters setValue:[NSString stringWithFormat:@"%lu", (unsigned long)fetchRequest.fetchLimit] forKey:self.limitParameter];
     }
     
     return mutableParameters;
@@ -328,8 +328,8 @@ static NSUInteger const kAFPaginationDefaultPerPage = 20;
     NSUInteger page = fetchRequest.fetchOffset == 0 ? kAFPaginationDefaultPage : (NSUInteger)floorf((float)fetchRequest.fetchOffset / (float)perPage) + 1;
     
     NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
-    [mutableParameters setValue:[NSString stringWithFormat:@"%u", page] forKey:self.pageParameter];
-    [mutableParameters setValue:[NSString stringWithFormat:@"%u", perPage] forKey:self.perPageParameter];
+    [mutableParameters setValue:[NSString stringWithFormat:@"%lu", (unsigned long)page] forKey:self.pageParameter];
+    [mutableParameters setValue:[NSString stringWithFormat:@"%lu", (unsigned long)perPage] forKey:self.perPageParameter];
     
     return mutableParameters;
 }
