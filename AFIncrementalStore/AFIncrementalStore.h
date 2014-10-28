@@ -102,6 +102,15 @@
                     withContext:(NSManagedObjectContext *)context
                           error:(NSError *__autoreleasing *)error;
 
+
+///-----------------------
+/// @name Helper Methods
+///-----------------------
+
+- (NSString *)lastModifiedStringForEntity:(NSEntityDescription *)entity 
+									 withResourceIdentifier:(NSString *)resourceIdentifier 
+										 					withContext:(NSManagedObjectContext *)context;
+
 @end
 
 #pragma mark -

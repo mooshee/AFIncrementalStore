@@ -581,6 +581,22 @@ withAttributeAndRelationshipValuesFromManagedObject:(NSManagedObject *)managedOb
     return [NSArray array];
 }
 
+#pragma mark - Functions
+
+- (NSString *)lastModifiedStringForEntity:(NSEntityDescription *)entity withResourceIdentifier:(NSString *)resourceIdentifier withContext:(NSManagedObjectContext *)context
+{
+	NSManagedObjectID *backingObjectID = [self objectIDForBackingObjectForEntity:entity withResourceIdentifier:resourceIdentifier];
+	__block NSManagedObject *backingObject = nil;
+	NSManagedObjectContext *backingContext = [self backingManagedObjectContext];
+	[backingContext performBlockAndWait:^{
+		if (backingObjectID) {
+			backingObject = [backingContext existingObjectWithID:backingObjectID error:nil];
+		}
+	}];
+	
+	return backingObject ? [backingObject valueForKey:kAFIncrementalStoreLastModifiedAttributeName] : nil;
+}
+
 #pragma mark - NSIncrementalStore
 
 - (BOOL)loadMetadata:(NSError *__autoreleasing *)error {
