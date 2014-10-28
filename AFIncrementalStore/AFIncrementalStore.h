@@ -129,11 +129,13 @@
  
  @discussion For example, if `GET /users` returned an `NSDictionary` with an array of users keyed on `"users"`, this method would return the keyed array. Conversely, if `GET /users/123` returned a dictionary with all of the atributes of the requested user, this method would simply return that dictionary.
 
+ @param entity The entity represented
  @param responseObject The response object returned from the server.
  
- @return An `NSDictionary` or an `NSArray` of `NSDictionaries` containing the resource representations.
+ @return An `NSDictionary` with the representation or an `NSArray` of `NSDictionaries` containing the resource representations.
  */
-- (id)representationOrArrayOfRepresentationsFromResponseObject:(id)responseObject;
+- (id)representationOrArrayOfRepresentationsOfEntity:(NSEntityDescription *)entity
+                                  fromResponseObject:(id)responseObject;
 
 /**
  Returns an `NSDictionary` containing the representations of associated objects found within the representation of a response object, keyed by their relationship name.
@@ -233,7 +235,14 @@
 ///-----------------------
 
 /**
+ Returns the attributes representation of an entity from the specified managed object. This method is used to get the attributes of the representation from its managed object.
  
+ @discussion For example, if the representation sent to `POST /products` or `PUT /products/123` had a `description` field that corresponded with the `productDescription` attribute in its Core Data model, this method would set the value of the `productDescription` field to the value of the `description` key in representation/dictionary.
+ 
+ @param attributes The resource representation.
+ @param managedObject The `NSManagedObject` for the representation.
+ 
+ @return An `NSDictionary` containing the attributes for a representation, based on the given managed object. 
  */
 - (NSDictionary *)representationOfAttributes:(NSDictionary *)attributes
                              ofManagedObject:(NSManagedObject *)managedObject;
@@ -308,37 +317,95 @@ extern NSString * const AFIncrementalStoreUnimplementedMethodException;
 ///--------------------
 
 /**
- Posted before an HTTP request operation starts. 
+ Posted before an HTTP request operation corresponding to a fetch request starts. 
  The object is the managed object context of the request.
  The notification `userInfo` contains the finished request operation, keyed at `AFIncrementalStoreRequestOperationKey`, as well as the associated persistent store request, if applicable, keyed at `AFIncrementalStorePersistentStoreRequestKey`.
  */
 extern NSString * const AFIncrementalStoreContextWillFetchRemoteValues;
 
 /**
- 
- */
-extern NSString * const AFIncrementalStoreContextWillSaveRemoteValues;
-
-/**
- Posted after an HTTP request operation finishes. 
- The object is the managed object context of the request. 
+ Posted after an HTTP request operation corresponding to a fetch request finishes.
+ The object is the managed object context of the request.
  The notification `userInfo` contains the finished request operation, keyed at `AFIncrementalStoreRequestOperationKey`, as well as the associated persistent store request, if applicable, keyed at `AFIncrementalStorePersistentStoreRequestKey`.
  */
 extern NSString * const AFIncrementalStoreContextDidFetchRemoteValues;
 
+//------------------------------------------------------------------------------
+
 /**
- 
+ Posted before an HTTP request operation corresponding to a fetch request starts.
+ The object is the managed object context of the request.
+ The notification `userInfo` contains an array of request operations, keyed at `AFIncrementalStoreRequestOperationKey`, as well as the associated persistent store request, if applicable, keyed at `AFIncrementalStorePersistentStoreRequestKey`.
+ */
+extern NSString * const AFIncrementalStoreContextWillSaveRemoteValues;
+
+/**
+ Posted after an HTTP request operation corresponding to a fetch request finishes.
+ The object is the managed object context of the request.
+ The notification `userInfo` contains an array of request operations, keyed at `AFIncrementalStoreRequestOperationKey`, as well as the associated persistent store request, if applicable, keyed at `AFIncrementalStorePersistentStoreRequestKey`.
  */
 extern NSString * const AFIncrementalStoreContextDidSaveRemoteValues;
 
+//------------------------------------------------------------------------------
+
+/**
+ Posted before an HTTP request operation corresponding to an attribute fault starts.
+ The object is the managed object context of the request.
+ The notification `userInfo` contains an array of request operations, keyed at `AFIncrementalStoreRequestOperationKey`, as well as the managed object ID of the faulting object, keyed at `AFIncrementalStoreFaultingObjectIDKey`.
+ */
+extern NSString * const AFIncrementalStoreContextWillFetchNewValuesForObject;
+
+/**
+ Posted after an HTTP request operation corresponding to an attribute fault finishes.
+ The object is the managed object context of the request.
+ The notification `userInfo` contains an array of request operations, keyed at `AFIncrementalStoreRequestOperationKey`, as well as the managed object ID of the faulting object, keyed at `AFIncrementalStoreFaultingObjectIDKey`.
+ */
+extern NSString * const AFIncrementalStoreContextDidFetchNewValuesForObject;
+
+//------------------------------------------------------------------------------
+
+/**
+ Posted before an HTTP request operation corresponding to an relationship fault starts.
+ The object is the managed object context of the request.
+ The notification `userInfo` contains an array of request operations, keyed at `AFIncrementalStoreRequestOperationKey`, as well as the faulting relationship, keyed at `AFIncrementalStoreFaultingRelationshipKey`, and the managed object ID of the faulting object, keyed at `AFIncrementalStoreFaultingObjectIDKey`.
+
+ */
+extern NSString * const AFIncrementalStoreContextWillFetchNewValuesForRelationship;
+
+/**
+ Posted after an HTTP request operation corresponding to a relationship fault finishes.
+ The object is the managed object context of the request.
+ The notification `userInfo` contains an array of request operations, keyed at `AFIncrementalStoreRequestOperationKey`, as well as the faulting relationship, keyed at `AFIncrementalStoreFaultingRelationshipKey`, and the managed object ID of the faulting object, keyed at `AFIncrementalStoreFaultingObjectIDKey`.
+ */
+extern NSString * const AFIncrementalStoreContextDidFetchNewValuesForRelationship;
+
+//------------------------------------------------------------------------------
+
+/**
+ A key in the `userInfo` dictionary in a `AFIncrementalStoreContextWillFetchRemoteValues` or `AFIncrementalStoreContextDidFetchRemoteValues` as well as `AFIncrementalStoreContextWillSaveRemoteValues` or `AFIncrementalStoreContextDidSaveRemoteValues` notifications.
+ The corresponding value is an `NSArray` of `AFHTTPRequestOperation` objects corresponding to the request operations triggered by the fetch or save changes request. 
+ */
+extern NSString * const AFIncrementalStoreRequestOperationsKey;
+
 /**
  A key in the `userInfo` dictionary in a `AFIncrementalStoreContextWillFetchRemoteValues` or `AFIncrementalStoreContextDidFetchRemoteValues` notification.
- The corresponding value is an `AFHTTPRequestOperation` object representing the associated request. */
-extern NSString * const AFIncrementalStoreRequestOperationKey;
+ The corresponding value is an `NSArray` of `NSManagedObjectIDs` for the objects returned by the remote HTTP request for the associated fetch request.
+ */
+extern NSString * const AFIncrementalStoreFetchedObjectIDsKey;
+
+/**
+ A key in the `userInfo` dictionary in a `AFIncrementalStoreContextWillFetchNewValuesForObject` or `AFIncrementalStoreContextDidFetchNewValuesForObject` notification.
+ The corresponding value is an `NSManagedObjectID` for the faulting managed object.
+ */
+extern NSString * const AFIncrementalStoreFaultingObjectIDKey;
+
+/**
+ A key in the `userInfo` dictionary in a `AFIncrementalStoreContextWillFetchNewValuesForRelationship` or `AFIncrementalStoreContextDidFetchNewValuesForRelationship` notification.
+ The corresponding value is an `NSRelationshipDescription` for the faulting relationship.
+ */
+extern NSString * const AFIncrementalStoreFaultingRelationshipKey;
 
 /**
  A key in the `userInfo` dictionary in a `AFIncrementalStoreContextWillFetchRemoteValues` or `AFIncrementalStoreContextDidFetchRemoteValues` notification.
  The corresponding value is an `NSPersistentStoreRequest` object representing the associated fetch or save request. */
 extern NSString * const AFIncrementalStorePersistentStoreRequestKey;
-
-extern NSString * const AFIncrementalStoreFetchedObjectsKey;

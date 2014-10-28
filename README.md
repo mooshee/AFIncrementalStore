@@ -5,6 +5,8 @@ AFIncrementalStore is an [`NSIncrementalStore`](http://nshipster.com/nsincrement
 
 Weighing in at just a few hundred LOC, in a single `{.h,.m}` file pair, AFIncrementalStore is something you can get your head around. Integrating it into your project couldn't be easier--just swap out your `NSPersistentStore` for it. No monkey-patching, no extra properties on your models.
 
+> That said, unless you're pretty confident in your Core Data jitsu, you'll probably be much better off rolling your own simple [NSCoding / NSKeyedArchiver](http://nshipster.com/nscoding/)-based solution (at least to start off).
+
 ## Incremental Store Persistence
 
 `AFIncrementalStore` does not persist data directly. Instead, _it manages a persistent store coordinator_ that can be configured to communicate with any number of persistent stores of your choice.
@@ -31,30 +33,53 @@ The only thing you need to do is tell `AFIncrementalStore` how to map Core Data 
 > Don't worry if this looks like a lot of work--if your web service is RESTful, `AFRESTClient` does a lot of the heavy lifting for you. If your target web service is SOAP, RPC, or kinda ad-hoc, you can easily use these protocol methods to get everything hooked up.
 
 ```objective-c
-- (id)representationOrArrayOfRepresentationsFromResponseObject:(id)responseObject;
+
+@required
+
+- (id)representationOrArrayOfRepresentationsOfEntity:(NSEntityDescription *)entity
+                                  fromResponseObject:(id)responseObject;
 
 - (NSDictionary *)representationsForRelationshipsFromRepresentation:(NSDictionary *)representation
                                                            ofEntity:(NSEntityDescription *)entity
                                                        fromResponse:(NSHTTPURLResponse *)response;
 
 - (NSString *)resourceIdentifierForRepresentation:(NSDictionary *)representation
-                                         ofEntity:(NSEntityDescription *)entity;
-
-- (NSDictionary *)attributesForRepresentation:(NSDictionary *)representation
                                          ofEntity:(NSEntityDescription *)entity
                                      fromResponse:(NSHTTPURLResponse *)response;
 
-- (NSURLRequest *)requestForFetchRequest:(NSFetchRequest *)fetchRequest
-                             withContext:(NSManagedObjectContext *)context;
+- (NSDictionary *)attributesForRepresentation:(NSDictionary *)representation
+                                     ofEntity:(NSEntityDescription *)entity
+                                 fromResponse:(NSHTTPURLResponse *)response;
 
-- (NSURLRequest *)requestWithMethod:(NSString *)method
-                pathForObjectWithID:(NSManagedObjectID *)objectID
-                        withContext:(NSManagedObjectContext *)context;
+- (NSMutableURLRequest *)requestForFetchRequest:(NSFetchRequest *)fetchRequest
+                                    withContext:(NSManagedObjectContext *)context;
 
-- (NSURLRequest *)requestWithMethod:(NSString *)method
-                pathForRelationship:(NSRelationshipDescription *)relationship
-                    forObjectWithID:(NSManagedObjectID *)objectID
-                        withContext:(NSManagedObjectContext *)context;
+- (NSMutableURLRequest *)requestWithMethod:(NSString *)method
+                       pathForObjectWithID:(NSManagedObjectID *)objectID
+                               withContext:(NSManagedObjectContext *)context;
+
+- (NSMutableURLRequest *)requestWithMethod:(NSString *)method
+                       pathForRelationship:(NSRelationshipDescription *)relationship
+                           forObjectWithID:(NSManagedObjectID *)objectID
+                               withContext:(NSManagedObjectContext *)context;
+
+@optional
+
+- (NSDictionary *)representationOfAttributes:(NSDictionary *)attributes
+                             ofManagedObject:(NSManagedObject *)managedObject;
+
+- (NSMutableURLRequest *)requestForInsertedObject:(NSManagedObject *)insertedObject;
+
+- (NSMutableURLRequest *)requestForUpdatedObject:(NSManagedObject *)updatedObject;
+
+- (NSMutableURLRequest *)requestForDeletedObject:(NSManagedObject *)deletedObject;
+
+- (BOOL)shouldFetchRemoteAttributeValuesForObjectWithID:(NSManagedObjectID *)objectID
+                                 inManagedObjectContext:(NSManagedObjectContext *)context;
+
+- (BOOL)shouldFetchRemoteValuesForRelationship:(NSRelationshipDescription *)relationship
+                               forObjectWithID:(NSManagedObjectID *)objectID
+                        inManagedObjectContext:(NSManagedObjectContext *)context;
 ```
 
 ## Getting Started
@@ -71,18 +96,23 @@ AFIncrementalStore requires Xcode 4.4 with either the [iOS 5.0](http://developer
 
 [CocoaPods](http://cocoapods.org) is the recommended way to add AFIncrementalStore to your project.
 
-Here's an example podfile that installs AFIncrementalStore and its dependency, AFNetworking. 
+Here's an example podfile that installs AFIncrementalStore and its dependency, AFNetworking:
+
 ### Podfile
 
 ```ruby
 platform :ios, '5.0'
 
-pod 'AFIncrementalStore', '0.3.0'
+pod 'AFIncrementalStore'
 ```
 
 Note the specification of iOS 5.0 as the platform; leaving out the 5.0 will cause CocoaPods to fail with the following message:
 
 > [!] AFIncrementalStore is not compatible with iOS 4.3.
+
+## References
+
+Apple has recently updated their programming guide for `NSIncrementalStore`, which is [available from the Developer Center](https://developer.apple.com/library/prerelease/ios/documentation/DataManagement/Conceptual/IncrementalStorePG/ImplementationStrategy/ImplementationStrategy.html). You may find this useful in debugging the behavior of `AFIncrementalStore`, and its interactions with your app's Core Data stack.
 
 ## Credits
 
@@ -99,4 +129,4 @@ Follow AFNetworking on Twitter ([@AFNetworking](https://twitter.com/AFNetworking
 
 ## License
 
-AFNetworking is available under the MIT license. See the LICENSE file for more info.
+AFIncrementalStore and AFNetworking are available under the MIT license. See the LICENSE file for more info.

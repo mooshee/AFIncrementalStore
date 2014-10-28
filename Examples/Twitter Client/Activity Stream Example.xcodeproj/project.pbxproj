@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F81D903616F3DED30043C85A /* NSValueTransformer+TransformerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F81D903016F3DED30043C85A /* NSValueTransformer+TransformerKit.m */; };
+		F81D905016F3DEF00043C85A /* NSString+InflectorKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F81D904D16F3DEF00043C85A /* NSString+InflectorKit.m */; };
+		F81D905116F3DEF00043C85A /* TTTStringInflector.m in Sources */ = {isa = PBXBuildFile; fileRef = F81D904F16F3DEF00043C85A /* TTTStringInflector.m */; };
 		F8478A69162729B80026615F /* AppDotNet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F8874F2115B08CA80048680F /* AppDotNet.xcdatamodeld */; };
 		F87CD18E15DAB2B200E4C166 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F87CD18D15DAB2B200E4C166 /* PostTableViewCell.m */; };
 		F87CD19215DAB45100E4C166 /* profile-image-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = F87CD19015DAB45100E4C166 /* profile-image-placeholder.png */; };
@@ -34,9 +37,21 @@
 		F8AFAFB415AB4F28003FE5BB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AFAFB315AB4F28003FE5BB /* Foundation.framework */; };
 		F8AFAFB615AB4F28003FE5BB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AFAFB515AB4F28003FE5BB /* CoreGraphics.framework */; };
 		F8AFAFB815AB4F28003FE5BB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AFAFB715AB4F28003FE5BB /* CoreData.framework */; };
+		F8B6873416F29811001909E6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8B6873316F29811001909E6 /* MobileCoreServices.framework */; };
+		F8B6873616F2981B001909E6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8B6873516F2981B001909E6 /* SystemConfiguration.framework */; };
+		F8F82416173893D400ED7E21 /* TTTDateTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F82413173893D400ED7E21 /* TTTDateTransformers.m */; };
+		F8F82417173893D400ED7E21 /* TTTImageTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F82414173893D400ED7E21 /* TTTImageTransformers.m */; };
+		F8F82418173893D400ED7E21 /* TTTStringTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F82415173893D400ED7E21 /* TTTStringTransformers.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F81D902F16F3DED30043C85A /* NSValueTransformer+TransformerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValueTransformer+TransformerKit.h"; sourceTree = "<group>"; };
+		F81D903016F3DED30043C85A /* NSValueTransformer+TransformerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValueTransformer+TransformerKit.m"; sourceTree = "<group>"; };
+		F81D903516F3DED30043C85A /* TransformerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformerKit.h; sourceTree = "<group>"; };
+		F81D904C16F3DEF00043C85A /* NSString+InflectorKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+InflectorKit.h"; sourceTree = "<group>"; };
+		F81D904D16F3DEF00043C85A /* NSString+InflectorKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+InflectorKit.m"; sourceTree = "<group>"; };
+		F81D904E16F3DEF00043C85A /* TTTStringInflector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTStringInflector.h; sourceTree = "<group>"; };
+		F81D904F16F3DEF00043C85A /* TTTStringInflector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTStringInflector.m; sourceTree = "<group>"; };
 		F87CD18C15DAB2B200E4C166 /* PostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostTableViewCell.h; path = Classes/PostTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		F87CD18D15DAB2B200E4C166 /* PostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostTableViewCell.m; path = Classes/PostTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		F87CD19015DAB45100E4C166 /* profile-image-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-image-placeholder.png"; sourceTree = "<group>"; };
@@ -86,6 +101,14 @@
 		F8AFAFB315AB4F28003FE5BB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F8AFAFB515AB4F28003FE5BB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		F8AFAFB715AB4F28003FE5BB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		F8B6873316F29811001909E6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		F8B6873516F2981B001909E6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F8F82410173893D400ED7E21 /* TTTDateTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTDateTransformers.h; sourceTree = "<group>"; };
+		F8F82411173893D400ED7E21 /* TTTImageTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTImageTransformers.h; sourceTree = "<group>"; };
+		F8F82412173893D400ED7E21 /* TTTStringTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTStringTransformers.h; sourceTree = "<group>"; };
+		F8F82413173893D400ED7E21 /* TTTDateTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTDateTransformers.m; sourceTree = "<group>"; };
+		F8F82414173893D400ED7E21 /* TTTImageTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTImageTransformers.m; sourceTree = "<group>"; };
+		F8F82415173893D400ED7E21 /* TTTStringTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTStringTransformers.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +116,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8B6873616F2981B001909E6 /* SystemConfiguration.framework in Frameworks */,
+				F8B6873416F29811001909E6 /* MobileCoreServices.framework in Frameworks */,
 				F8AFAFB215AB4F28003FE5BB /* UIKit.framework in Frameworks */,
 				F8AFAFB415AB4F28003FE5BB /* Foundation.framework in Frameworks */,
 				F8AFAFB615AB4F28003FE5BB /* CoreGraphics.framework in Frameworks */,
@@ -103,6 +128,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F81D902E16F3DED30043C85A /* TransformerKit */ = {
+			isa = PBXGroup;
+			children = (
+				F81D903516F3DED30043C85A /* TransformerKit.h */,
+				F81D902F16F3DED30043C85A /* NSValueTransformer+TransformerKit.h */,
+				F81D903016F3DED30043C85A /* NSValueTransformer+TransformerKit.m */,
+				F8F82410173893D400ED7E21 /* TTTDateTransformers.h */,
+				F8F82411173893D400ED7E21 /* TTTImageTransformers.h */,
+				F8F82412173893D400ED7E21 /* TTTStringTransformers.h */,
+				F8F82413173893D400ED7E21 /* TTTDateTransformers.m */,
+				F8F82414173893D400ED7E21 /* TTTImageTransformers.m */,
+				F8F82415173893D400ED7E21 /* TTTStringTransformers.m */,
+			);
+			name = TransformerKit;
+			path = ../../TransformerKit/TransformerKit;
+			sourceTree = "<group>";
+		};
+		F81D904B16F3DEF00043C85A /* InflectorKit */ = {
+			isa = PBXGroup;
+			children = (
+				F81D904C16F3DEF00043C85A /* NSString+InflectorKit.h */,
+				F81D904D16F3DEF00043C85A /* NSString+InflectorKit.m */,
+				F81D904E16F3DEF00043C85A /* TTTStringInflector.h */,
+				F81D904F16F3DEF00043C85A /* TTTStringInflector.m */,
+			);
+			name = InflectorKit;
+			path = ../../InflectorKit/InflectorKit;
+			sourceTree = "<group>";
+		};
 		F87CD18A15DAB2A700E4C166 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +266,8 @@
 		F8AFAFB015AB4F28003FE5BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F8B6873516F2981B001909E6 /* SystemConfiguration.framework */,
+				F8B6873316F29811001909E6 /* MobileCoreServices.framework */,
 				F8AFAFB115AB4F28003FE5BB /* UIKit.framework */,
 				F8AFAFB315AB4F28003FE5BB /* Foundation.framework */,
 				F8AFAFB515AB4F28003FE5BB /* CoreGraphics.framework */,
@@ -253,6 +309,8 @@
 			children = (
 				F8AD92E215D9A0BB00402FE9 /* AFIncrementalStore */,
 				F8AD92C215D9A0B400402FE9 /* AFNetworking */,
+				F81D904B16F3DEF00043C85A /* InflectorKit */,
+				F81D902E16F3DED30043C85A /* TransformerKit */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -284,7 +342,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = AF;
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = F8AFAFA715AB4F28003FE5BB /* Build configuration list for PBXProject "Activity Stream Example" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -341,6 +399,12 @@
 				F8AD92F815D9A2DB00402FE9 /* Post.m in Sources */,
 				F8AD92FB15D9A2E500402FE9 /* User.m in Sources */,
 				F87CD18E15DAB2B200E4C166 /* PostTableViewCell.m in Sources */,
+				F81D903616F3DED30043C85A /* NSValueTransformer+TransformerKit.m in Sources */,
+				F81D905016F3DEF00043C85A /* NSString+InflectorKit.m in Sources */,
+				F81D905116F3DEF00043C85A /* TTTStringInflector.m in Sources */,
+				F8F82416173893D400ED7E21 /* TTTDateTransformers.m in Sources */,
+				F8F82417173893D400ED7E21 /* TTTImageTransformers.m in Sources */,
+				F8F82418173893D400ED7E21 /* TTTStringTransformers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +417,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -378,6 +446,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

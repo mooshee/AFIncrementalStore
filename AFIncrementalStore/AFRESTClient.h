@@ -23,6 +23,7 @@
 #import "AFHTTPClient.h"
 #import "AFHTTPRequestOperation.h"
 #import "AFIncrementalStore.h"
+#import "TTTStringInflector.h"
 
 @protocol AFPaginator;
 
@@ -35,6 +36,11 @@
  
  */
 @property (nonatomic, strong) id <AFPaginator> paginator;
+
+/**
+ 
+ */
+@property (readonly, nonatomic, strong) TTTStringInflector *inflector;
 
 ///------------------------
 /// @name Determining Paths
@@ -76,15 +82,6 @@
                         forObject:(NSManagedObject *)object;
 
 @end
-
-///----------------
-/// @name Functions
-///----------------
-
-/**
- 
- */
-extern NSDate * AFDateFromISO8601String(NSString *ISO8601String);
 
 ///-----------------
 /// @name Pagination

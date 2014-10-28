@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F81D904116F3DED80043C85A /* NSValueTransformer+TransformerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F81D903B16F3DED80043C85A /* NSValueTransformer+TransformerKit.m */; };
+		F81D904916F3DEEB0043C85A /* NSString+InflectorKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F81D904616F3DEEB0043C85A /* NSString+InflectorKit.m */; };
+		F81D904A16F3DEEB0043C85A /* TTTStringInflector.m in Sources */ = {isa = PBXBuildFile; fileRef = F81D904816F3DEEB0043C85A /* TTTStringInflector.m */; };
+		F81D905A16F3E6AC0043C85A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F81D905916F3E6AC0043C85A /* Default-568h@2x.png */; };
+		F81D905C16F3E6BC0043C85A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F81D905B16F3E6BC0043C85A /* SystemConfiguration.framework */; };
+		F81D905E16F3E6C10043C85A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F81D905D16F3E6C10043C85A /* MobileCoreServices.framework */; };
 		F8874F1415B08B770048680F /* Artist.m in Sources */ = {isa = PBXBuildFile; fileRef = F8874F0715B08B770048680F /* Artist.m */; };
 		F8874F1515B08B770048680F /* ArtistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8874F0815B08B770048680F /* ArtistDetailViewController.m */; };
 		F8874F1615B08B770048680F /* ArtistsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8874F0915B08B770048680F /* ArtistsListViewController.m */; };
@@ -31,9 +37,22 @@
 		F8AFAFB415AB4F28003FE5BB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AFAFB315AB4F28003FE5BB /* Foundation.framework */; };
 		F8AFAFB615AB4F28003FE5BB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AFAFB515AB4F28003FE5BB /* CoreGraphics.framework */; };
 		F8AFAFB815AB4F28003FE5BB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AFAFB715AB4F28003FE5BB /* CoreData.framework */; };
+		F8F8240D173893C000ED7E21 /* TTTDateTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F8240A173893C000ED7E21 /* TTTDateTransformers.m */; };
+		F8F8240E173893C000ED7E21 /* TTTImageTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F8240B173893C000ED7E21 /* TTTImageTransformers.m */; };
+		F8F8240F173893C000ED7E21 /* TTTStringTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F8240C173893C000ED7E21 /* TTTStringTransformers.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F81D903A16F3DED80043C85A /* NSValueTransformer+TransformerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValueTransformer+TransformerKit.h"; sourceTree = "<group>"; };
+		F81D903B16F3DED80043C85A /* NSValueTransformer+TransformerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValueTransformer+TransformerKit.m"; sourceTree = "<group>"; };
+		F81D904016F3DED80043C85A /* TransformerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformerKit.h; sourceTree = "<group>"; };
+		F81D904516F3DEEB0043C85A /* NSString+InflectorKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+InflectorKit.h"; sourceTree = "<group>"; };
+		F81D904616F3DEEB0043C85A /* NSString+InflectorKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+InflectorKit.m"; sourceTree = "<group>"; };
+		F81D904716F3DEEB0043C85A /* TTTStringInflector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTStringInflector.h; sourceTree = "<group>"; };
+		F81D904816F3DEEB0043C85A /* TTTStringInflector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTStringInflector.m; sourceTree = "<group>"; };
+		F81D905916F3E6AC0043C85A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		F81D905B16F3E6BC0043C85A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F81D905D16F3E6C10043C85A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		F8874E7515B08AD30048680F /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = SOURCE_ROOT; };
 		F8874E7615B08ADB0048680F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		F8874F0715B08B770048680F /* Artist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Artist.m; path = Classes/Artist.m; sourceTree = SOURCE_ROOT; };
@@ -80,6 +99,12 @@
 		F8AFAFB315AB4F28003FE5BB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F8AFAFB515AB4F28003FE5BB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		F8AFAFB715AB4F28003FE5BB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		F8F82407173893C000ED7E21 /* TTTDateTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTDateTransformers.h; sourceTree = "<group>"; };
+		F8F82408173893C000ED7E21 /* TTTImageTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTImageTransformers.h; sourceTree = "<group>"; };
+		F8F82409173893C000ED7E21 /* TTTStringTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTStringTransformers.h; sourceTree = "<group>"; };
+		F8F8240A173893C000ED7E21 /* TTTDateTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTDateTransformers.m; sourceTree = "<group>"; };
+		F8F8240B173893C000ED7E21 /* TTTImageTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTImageTransformers.m; sourceTree = "<group>"; };
+		F8F8240C173893C000ED7E21 /* TTTStringTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTStringTransformers.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +112,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F81D905E16F3E6C10043C85A /* MobileCoreServices.framework in Frameworks */,
+				F81D905C16F3E6BC0043C85A /* SystemConfiguration.framework in Frameworks */,
 				F8AFAFB215AB4F28003FE5BB /* UIKit.framework in Frameworks */,
 				F8AFAFB415AB4F28003FE5BB /* Foundation.framework in Frameworks */,
 				F8AFAFB615AB4F28003FE5BB /* CoreGraphics.framework in Frameworks */,
@@ -97,6 +124,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F81D903916F3DED80043C85A /* TransformerKit */ = {
+			isa = PBXGroup;
+			children = (
+				F81D904016F3DED80043C85A /* TransformerKit.h */,
+				F81D903A16F3DED80043C85A /* NSValueTransformer+TransformerKit.h */,
+				F81D903B16F3DED80043C85A /* NSValueTransformer+TransformerKit.m */,
+				F8F82407173893C000ED7E21 /* TTTDateTransformers.h */,
+				F8F82408173893C000ED7E21 /* TTTImageTransformers.h */,
+				F8F82409173893C000ED7E21 /* TTTStringTransformers.h */,
+				F8F8240A173893C000ED7E21 /* TTTDateTransformers.m */,
+				F8F8240B173893C000ED7E21 /* TTTImageTransformers.m */,
+				F8F8240C173893C000ED7E21 /* TTTStringTransformers.m */,
+			);
+			name = TransformerKit;
+			path = ../../TransformerKit/TransformerKit;
+			sourceTree = "<group>";
+		};
+		F81D904416F3DEEB0043C85A /* InflectorKit */ = {
+			isa = PBXGroup;
+			children = (
+				F81D904516F3DEEB0043C85A /* NSString+InflectorKit.h */,
+				F81D904616F3DEEB0043C85A /* NSString+InflectorKit.m */,
+				F81D904716F3DEEB0043C85A /* TTTStringInflector.h */,
+				F81D904816F3DEEB0043C85A /* TTTStringInflector.m */,
+			);
+			name = InflectorKit;
+			path = ../../InflectorKit/InflectorKit;
+			sourceTree = "<group>";
+		};
 		F8874E5915AF927D0048680F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,7 +218,8 @@
 		F8AFAFA215AB4F28003FE5BB = {
 			isa = PBXGroup;
 			children = (
-				F8AFAFB915AB4F28003FE5BB /* IncrementalStoreExample */,
+				F81D905916F3E6AC0043C85A /* Default-568h@2x.png */,
+				F8AFAFB915AB4F28003FE5BB /* Basic Example */,
 				F8AFAFB015AB4F28003FE5BB /* Frameworks */,
 				F8AFAFAE15AB4F28003FE5BB /* Products */,
 				F8AFB07215AB5010003FE5BB /* Vendor */,
@@ -180,6 +237,8 @@
 		F8AFAFB015AB4F28003FE5BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F81D905D16F3E6C10043C85A /* MobileCoreServices.framework */,
+				F81D905B16F3E6BC0043C85A /* SystemConfiguration.framework */,
 				F8AFAFB115AB4F28003FE5BB /* UIKit.framework */,
 				F8AFAFB315AB4F28003FE5BB /* Foundation.framework */,
 				F8AFAFB515AB4F28003FE5BB /* CoreGraphics.framework */,
@@ -188,7 +247,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F8AFAFB915AB4F28003FE5BB /* IncrementalStoreExample */ = {
+		F8AFAFB915AB4F28003FE5BB /* Basic Example */ = {
 			isa = PBXGroup;
 			children = (
 				F8874F1C15B08BD30048680F /* AppDelegate.h */,
@@ -201,6 +260,7 @@
 				F8874E5915AF927D0048680F /* Controllers */,
 				F8AFAFBA15AB4F28003FE5BB /* Supporting Files */,
 			);
+			name = "Basic Example";
 			path = IncrementalStoreExample;
 			sourceTree = "<group>";
 		};
@@ -219,6 +279,8 @@
 			children = (
 				F8AD92E215D9A0BB00402FE9 /* AFIncrementalStore */,
 				F8AD92C215D9A0B400402FE9 /* AFNetworking */,
+				F81D904416F3DEEB0043C85A /* InflectorKit */,
+				F81D903916F3DED80043C85A /* TransformerKit */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -250,7 +312,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = AF;
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = F8AFAFA715AB4F28003FE5BB /* Build configuration list for PBXProject "Basic Example" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -274,6 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F81D905A16F3E6AC0043C85A /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +367,12 @@
 				F8AD92E115D9A0B400402FE9 /* UIImageView+AFNetworking.m in Sources */,
 				F8AD92E715D9A0BB00402FE9 /* AFIncrementalStore.m in Sources */,
 				F8AD92E815D9A0BB00402FE9 /* AFRESTClient.m in Sources */,
+				F81D904116F3DED80043C85A /* NSValueTransformer+TransformerKit.m in Sources */,
+				F81D904916F3DEEB0043C85A /* NSString+InflectorKit.m in Sources */,
+				F81D904A16F3DEEB0043C85A /* TTTStringInflector.m in Sources */,
+				F8F8240D173893C000ED7E21 /* TTTDateTransformers.m in Sources */,
+				F8F8240E173893C000ED7E21 /* TTTImageTransformers.m in Sources */,
+				F8F8240F173893C000ED7E21 /* TTTStringTransformers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +385,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -341,6 +414,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

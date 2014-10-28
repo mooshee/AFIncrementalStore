@@ -21,73 +21,8 @@
 // THE SOFTWARE.
 
 #import "AFRESTClient.h"
-#include <time.h>
-#include <xlocale.h>
 
-#define AF_ISO8601_MAX_LENGTH 25
-
-// Adopted from SSToolkit NSDate+SSToolkitAdditions
-// Created by Sam Soffes
-// Copyright (c) 2008-2012 Sam Soffes
-// https://github.com/soffes/sstoolkit/
-NSDate * AFDateFromISO8601String(NSString *ISO8601String) {
-    if (!ISO8601String) {
-        return nil;
-    }
-    
-    const char *str = [ISO8601String cStringUsingEncoding:NSUTF8StringEncoding];
-    char newStr[AF_ISO8601_MAX_LENGTH];
-    bzero(newStr, AF_ISO8601_MAX_LENGTH);
-    
-    size_t len = strlen(str);
-    if (len == 0) {
-        return nil;
-    }
-    
-    // UTC dates ending with Z
-    if (len == 20 && str[len - 1] == 'Z') {
-        memcpy(newStr, str, len - 1);
-        strncpy(newStr + len - 1, "+0000\0", 6);
-    }
-    
-    // Timezone includes a semicolon (not supported by strptime)
-    else if (len == 25 && str[22] == ':') {
-        memcpy(newStr, str, 22);
-        memcpy(newStr + 22, str + 23, 2);
-    }
-    
-    // Fallback: date was already well-formatted OR any other case (bad-formatted)
-    else {
-        memcpy(newStr, str, len > AF_ISO8601_MAX_LENGTH - 1 ? AF_ISO8601_MAX_LENGTH - 1 : len);
-    }
-    
-    // Add null terminator
-    newStr[sizeof(newStr) - 1] = 0;
-    
-    struct tm tm = {
-        .tm_sec = 0,
-        .tm_min = 0,
-        .tm_hour = 0,
-        .tm_mday = 0,
-        .tm_mon = 0,
-        .tm_year = 0,
-        .tm_wday = 0,
-        .tm_yday = 0,
-        .tm_isdst = -1,
-    };
-    
-    strptime_l(newStr, "%FT%T%z", &tm, NULL);
-    
-    return [NSDate dateWithTimeIntervalSince1970:mktime(&tm)];
-}
-
-static NSString * AFPluralizedString(NSString *string) {
-    if ([string hasSuffix:@"ss"] || [string hasSuffix:@"sh"] || [string hasSuffix:@"ch"]) {
-        return [[string stringByAppendingString:@"es"] lowercaseString];
-    } else {
-        return [[string stringByAppendingString:@"s"] lowercaseString];
-    }
-}
+#import "TTTDateTransformers.h"
 
 static NSString * AFQueryByAppendingParameters(NSString *query, NSDictionary *parameters) {
     static NSCharacterSet *_componentSeparatorCharacterSet = nil;
@@ -106,14 +41,33 @@ static NSString * AFQueryByAppendingParameters(NSString *query, NSDictionary *pa
     [parameters enumerateKeysAndObjectsUsingBlock:^(id field, id value, BOOL *stop) {
         [mutablePairs addObject:[NSString stringWithFormat:@"%@=%@", field, value]];
     }];
-    
+
     return [query stringByAppendingString:[mutablePairs componentsJoinedByString:@"&"]];
 }
 
+@interface AFRESTClient ()
+@property (readwrite, nonatomic, strong) TTTStringInflector *inflector;
+@end
+
 @implementation AFRESTClient
+@synthesize paginator = _paginator;
+@synthesize inflector = _inflector;
+
+- (id)initWithBaseURL:(NSURL *)url {
+    self = [super initWithBaseURL:url];
+    if (!self) {
+        return nil;
+    }
+
+    self.inflector = [TTTStringInflector defaultInflector];
+
+    return self;
+}
+
+#pragma mark -
 
 - (NSString *)pathForEntity:(NSEntityDescription *)entity {
-    return AFPluralizedString(entity.name);
+    return [self.inflector pluralize:[entity.name lowercaseString]];
 }
 
 - (NSString *)pathForObject:(NSManagedObject *)object {
@@ -131,16 +85,22 @@ static NSString * AFQueryByAppendingParameters(NSString *query, NSDictionary *pa
 
 #pragma mark Read Methods
 
-- (id)representationOrArrayOfRepresentationsFromResponseObject:(id)responseObject {
+- (id)representationOrArrayOfRepresentationsOfEntity:(NSEntityDescription *)entity
+                                  fromResponseObject:(id)responseObject
+{
     if ([responseObject isKindOfClass:[NSArray class]]) {
         return responseObject;
     } else if ([responseObject isKindOfClass:[NSDictionary class]]) {
-        // Distinguish between keyed array or individual representation
-        if ([[responseObject allKeys] count] == 1) {
-            id value = [responseObject valueForKey:[[responseObject allKeys] lastObject]];
-            if ([value isKindOfClass:[NSArray class]]) {
-                return value;
-            }
+        id value = nil;
+
+        value = [responseObject valueForKey:[entity.name lowercaseString]];
+        if (value && [value isKindOfClass:[NSDictionary class]]) {
+            return value;
+        }
+
+        value = [responseObject valueForKey:[self.inflector pluralize:[entity.name lowercaseString]]];
+        if (value && [value isKindOfClass:[NSArray class]]) {
+            return value;
         }
         
         return responseObject;
@@ -182,7 +142,7 @@ static NSString * AFQueryByAppendingParameters(NSString *query, NSDictionary *pa
     static NSArray *_candidateKeys = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _candidateKeys = [[NSArray alloc] initWithObjects:@"id", @"identifier", @"url", @"URL", nil];
+        _candidateKeys = [[NSArray alloc] initWithObjects:@"id", @"_id", @"identifier", @"url", @"URL", nil];
     });
     
     NSString *key = [[representation allKeys] firstObjectCommonWithArray:_candidateKeys];
@@ -207,20 +167,20 @@ static NSString * AFQueryByAppendingParameters(NSString *query, NSDictionary *pa
     NSMutableDictionary *mutableAttributes = [representation mutableCopy];
     @autoreleasepool {
         NSMutableSet *mutableKeys = [NSMutableSet setWithArray:[representation allKeys]];
-        [mutableKeys minusSet:[NSSet setWithArray:[[entity propertiesByName] allKeys]]];
+        [mutableKeys minusSet:[NSSet setWithArray:[[entity attributesByName] allKeys]]];
         [mutableAttributes removeObjectsForKeys:[mutableKeys allObjects]];
-    }
     
-    NSSet *keysWithNestedValues = [mutableAttributes keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
-        return [obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]];
-    }];
-    [mutableAttributes removeObjectsForKeys:[keysWithNestedValues allObjects]];
+        NSSet *keysWithNestedValues = [mutableAttributes keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
+            return [obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]];
+        }];
+        [mutableAttributes removeObjectsForKeys:[keysWithNestedValues allObjects]];
+    }
     
     [[entity attributesByName] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if ([(NSAttributeDescription *)obj attributeType] == NSDateAttributeType) {
             id value = [mutableAttributes valueForKey:key];
-            if (value && ![value isEqual:[NSNull null]]) {
-                [mutableAttributes setValue:AFDateFromISO8601String(value) forKey:key];
+            if (value && ![value isEqual:[NSNull null]] && [value isKindOfClass:[NSString class]]) {
+                [mutableAttributes setValue:[[NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName] reverseTransformedValue:value] forKey:key];
             }
         }
     }];
@@ -237,7 +197,6 @@ static NSString * AFQueryByAppendingParameters(NSString *query, NSDictionary *pa
     }
     
     NSMutableURLRequest *mutableRequest =  [self requestWithMethod:@"GET" path:[self pathForEntity:fetchRequest.entity] parameters:[mutableParameters count] == 0 ? nil : mutableParameters];
-    mutableRequest.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
     
     return mutableRequest;
 }
@@ -271,7 +230,15 @@ static NSString * AFQueryByAppendingParameters(NSString *query, NSDictionary *pa
 - (NSDictionary *)representationOfAttributes:(NSDictionary *)attributes
                              ofManagedObject:(NSManagedObject *)managedObject
 {
-    return attributes;
+    NSMutableDictionary *mutableAttributes = [attributes mutableCopy];
+    [attributes enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        // Use NSString representation of NSDate to avoid NSInvalidArgumentException when serializing JSON
+        if ([obj isKindOfClass:[NSDate class]]) {
+            [mutableAttributes setObject:[obj description] forKey:key];
+        }
+    }];
+
+    return mutableAttributes;
 }
 
 - (NSMutableURLRequest *)requestForInsertedObject:(NSManagedObject *)insertedObject {
@@ -281,33 +248,15 @@ static NSString * AFQueryByAppendingParameters(NSString *query, NSDictionary *pa
 - (NSMutableURLRequest *)requestForUpdatedObject:(NSManagedObject *)updatedObject {
     NSMutableSet *mutableChangedAttributeKeys = [NSMutableSet setWithArray:[[updatedObject changedValues] allKeys]];
     [mutableChangedAttributeKeys intersectSet:[NSSet setWithArray:[updatedObject.entity.attributesByName allKeys]]];
+    if ([mutableChangedAttributeKeys count] == 0) {
+        return nil;
+    }
     
     return [self requestWithMethod:@"PUT" path:[self pathForObject:updatedObject] parameters:[self representationOfAttributes:[[updatedObject changedValues] dictionaryWithValuesForKeys:[mutableChangedAttributeKeys allObjects]] ofManagedObject:updatedObject]];
 }
 
 - (NSMutableURLRequest *)requestForDeletedObject:(NSManagedObject *)deletedObject {
     return [self requestWithMethod:@"DELETE" path:[self pathForObject:deletedObject] parameters:nil];
-}
-
-#pragma mark - AFHTTPClient
-
-- (void)enqueueBatchOfHTTPRequestOperations:(NSArray *)operations
-                              progressBlock:(void (^)(NSUInteger, NSUInteger))progressBlock
-                            completionBlock:(void (^)(NSArray *))completionBlock
-{
-    for (AFHTTPRequestOperation *operation in operations) {
-        if ([operation isKindOfClass:[AFHTTPRequestOperation class]]) {
-            if (!operation.successCallbackQueue) {
-                operation.successCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
-            }
-            
-            if (!operation.failureCallbackQueue) {
-                operation.failureCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
-            }
-        }
-    }
-    
-    [super enqueueBatchOfHTTPRequestOperations:operations progressBlock:progressBlock completionBlock:completionBlock];
 }
 
 @end
