@@ -108,8 +108,8 @@
 ///-----------------------
 
 - (NSString *)lastModifiedStringForEntity:(NSEntityDescription *)entity 
-									 withResourceIdentifier:(NSString *)resourceIdentifier 
-										 					withContext:(NSManagedObjectContext *)context;
+				   withResourceIdentifier:(NSString *)resourceIdentifier
+							  withContext:(NSManagedObjectContext *)context;
 
 @end
 

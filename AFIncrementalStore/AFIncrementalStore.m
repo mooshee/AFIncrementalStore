@@ -583,7 +583,9 @@ withAttributeAndRelationshipValuesFromManagedObject:(NSManagedObject *)managedOb
 
 #pragma mark - Functions
 
-- (NSString *)lastModifiedStringForEntity:(NSEntityDescription *)entity withResourceIdentifier:(NSString *)resourceIdentifier withContext:(NSManagedObjectContext *)context
+- (NSString *)lastModifiedStringForEntity:(NSEntityDescription *)entity
+				   withResourceIdentifier:(NSString *)resourceIdentifier
+							  withContext:(NSManagedObjectContext *)context
 {
 	NSManagedObjectID *backingObjectID = [self objectIDForBackingObjectForEntity:entity withResourceIdentifier:resourceIdentifier];
 	__block NSManagedObject *backingObject = nil;
