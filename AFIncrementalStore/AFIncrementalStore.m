@@ -34,6 +34,7 @@ NSString * const AFIncrementalStoreContextWillFetchNewValuesForObject = @"AFIncr
 NSString * const AFIncrementalStoreContextDidFetchNewValuesForObject = @"AFIncrementalStoreContextDidFetchNewValuesForObject";
 NSString * const AFIncrementalStoreContextWillFetchNewValuesForRelationship = @"AFIncrementalStoreContextWillFetchNewValuesForRelationship";
 NSString * const AFIncrementalStoreContextDidFetchNewValuesForRelationship = @"AFIncrementalStoreContextDidFetchNewValuesForRelationship";
+NSString * const AFIncrementalStoreContextWillInsertOrUpdateObjects = @"AFIncrementalStoreContextWillInsertOrUpdateObjects";
 
 NSString * const AFIncrementalStoreRequestOperationsKey = @"AFIncrementalStoreRequestOperations";
 NSString * const AFIncrementalStoreFetchedObjectIDsKey = @"AFIncrementalStoreFetchedObjectIDs";
@@ -323,7 +324,9 @@ withAttributeAndRelationshipValuesFromManagedObject:(NSManagedObject *)managedOb
         
         return NO;
     }
-    
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:AFIncrementalStoreContextWillInsertOrUpdateObjects object:context userInfo:@{@"entity" : entity}];
+	
     NSManagedObjectContext *backingContext = [self backingManagedObjectContext];
     NSString *lastModified = [[response allHeaderFields] valueForKey:@"Last-Modified"];
 

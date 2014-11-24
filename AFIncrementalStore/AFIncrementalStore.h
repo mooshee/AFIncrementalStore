@@ -286,14 +286,6 @@
                                forObjectWithID:(NSManagedObjectID *)objectID
                         inManagedObjectContext:(NSManagedObjectContext *)context;
 
-// Other
-- (BOOL)insertOrUpdateObjectsFromRepresentations:(id)representationOrArrayOfRepresentations
-										ofEntity:(NSEntityDescription *)entity
-									fromResponse:(NSHTTPURLResponse *)response
-									 withContext:(NSManagedObjectContext *)context
-										   error:(NSError *__autoreleasing *)error
-								 completionBlock:(void (^)(NSArray *managedObjects, NSArray *backingObjects))completionBlock;
-
 @end
 
 ///----------------
@@ -386,6 +378,12 @@ extern NSString * const AFIncrementalStoreContextWillFetchNewValuesForRelationsh
  The notification `userInfo` contains an array of request operations, keyed at `AFIncrementalStoreRequestOperationKey`, as well as the faulting relationship, keyed at `AFIncrementalStoreFaultingRelationshipKey`, and the managed object ID of the faulting object, keyed at `AFIncrementalStoreFaultingObjectIDKey`.
  */
 extern NSString * const AFIncrementalStoreContextDidFetchNewValuesForRelationship;
+
+/**
+ 
+ */
+extern NSString * const AFIncrementalStoreContextWillInsertOrUpdateObjects;
+
 
 //------------------------------------------------------------------------------
 
